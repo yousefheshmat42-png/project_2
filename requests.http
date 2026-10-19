@@ -1,0 +1,45 @@
+@base = http://127.0.0.1:3001
+@token = REPLACE_WITH_LOGIN_TOKEN
+@adminKey = REPLACE_WITH_YOUR_ENV_ADMIN_KEY
+
+### Register
+POST {{base}}/auth/register
+Content-Type: application/json
+
+{"email":"student@example.test","password":"Example-pass-123"}
+
+### Login, then copy the token into @token above
+POST {{base}}/auth/login
+Content-Type: application/json
+
+{"email":"student@example.test","password":"Example-pass-123"}
+
+### Create a task
+POST {{base}}/tasks
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{"title":"Build a backend API","description":"Write and test the endpoints"}
+
+### List completed tasks
+GET {{base}}/tasks?status=done&page=1&limit=20
+Authorization: Bearer {{token}}
+
+### Update task (replace 1 with the returned id)
+PATCH {{base}}/tasks/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{"status":"done"}
+
+### Delete task
+DELETE {{base}}/tasks/1
+Authorization: Bearer {{token}}
+
+### Logout
+POST {{base}}/auth/logout
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{}
+
